@@ -1,0 +1,36 @@
+CREATE TABLE employee21sales_range 
+ (Salesman_id NUMBER(5), 
+ salesman_name VARCHAR2(30), 
+ sales_amount NUMBER(10), 
+ sales_date DATE) 
+ PARTITION BY RANGE(sales_date) 
+ (  
+ PARTITION sales_jan2002 VALUES LESS THAN(TO_DATE('01/02/2002','DD/MM/YYYY')),   
+ PARTITION sales_feb2002 VALUES LESS THAN(TO_DATE('01/03/2002','DD/MM/YYYY')), 
+ PARTITION sales_mar2002 VALUES LESS THAN(TO_DATE('01/04/2002','DD/MM/YYYY')), 
+ PARTITION sales_apr2002 VALUES LESSTHAN(TO_DATE('01/05/2002','DD/MM/YYYY')));
+
+
+insert into employee21sales_range values(1,'Drutarth kodas',3000,TO_DATE('12/02/2002','DD/MM/YYYY'));
+
+
+insert into employee21sales_range values(2,'Roel Nuke',4000,TO_DATE('06/03/2002','DD/MM/YYYY'));
+
+
+ insert all
+    into employee21sales_range values(3,'ram Mabadi',5000,TO_DATE('02/04/2002','DD/MM/YYYY'))
+    into employee21sales_range values(4,'Ranesh Mahid',6000,TO_DATE('10/01/2002','DD/MM/YYYY'))
+    into employee21sales_range values(5,'Chandra Chouhan',7000,TO_DATE('20/04/2002','DD/MM/YYYY'))
+    into employee21sales_range values(6,'Ayush Chande',8000,TO_DATE('12/02/2002','DD/MM/YYYY'))
+  into employee21sales_range values(7,'Aniket Mishra',9000,TO_DATE('18/03/2002','DD/MM/YYYY'))
+  into employee21sales_range values(8,'prem Patil',9500,TO_DATE('27/04/2002','DD/MM/YYYY'))
+  select*from dual; 
+
+
+SELECT*FROM employee21sales_range;
+
+
+select*from employee21sales_range partition(sales_jan2002);
+
+
+select*from employee21sales_range partition(sales_feb2002);

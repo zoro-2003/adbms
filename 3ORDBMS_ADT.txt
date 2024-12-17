@@ -1,0 +1,73 @@
+ create type KB_name As object 2 ( 3 fname varchar(20), 4 mname varchar(20), 5 iname varchar(20) 6 ); 7 /
+
+ create type KBB_address As object ( street varchar(20), city varchar(20), pincode number(10));/ 2 /
+
+ create type KBB_address As object ( street varchar(20), city varchar(20), pincode number(10)); 2 /
+
+ create table Friend1 ( c_id number(5) primary key, c_name KB_name, c_add KBB_address, c_phno number(10));
+
+ insert into Friend1 values(1,KB_name('Krutika','Q','kodas'),KBB_address('vasai','Thane',400602),7249183848);
+
+ insert into Friend1 values(2,KB_name('Noyal','D','Tuke'),KBB_address('Gimavhne','Dapoli',415712),7499752165);
+
+ select*from Friend1;
+
+ insert into Friend1 values(3,KB_name('Anand','S','joshi'), KBB_address('Peth','Pune',415412),7499752888);
+
+ insert into Friend1 values(4,KB_name('Vijay','V','Wagh'), KBB_address('Taddev','Mumbai',400012),8779621917);
+
+ insert into Friend1 values(5,KB_name('Avinash','S','Shirsat'), KBB_address('Gimavhne','Dapoli',400603),7249156165);
+
+ desc friend1
+
+ set describe depth 2;
+
+ desc Friend1;
+
+ select c.c_add.street from Friend1 c where c_id=1;
+
+ select*from Friend1;
+
+ select c_id,c.c_name.Iname from Friend1 c;
+
+ select c_id,c.c_name.fname from Friend1 c;
+
+ select c.c_name.fname||' '||c.c_name.mname||' '||c.c_name.Iname from Friend1 c;
+
+ alter type KBB_address add attribute(name KB_name)cascade;
+
+
+
+ create table Friend2 (c_id number(5), add1 KBB_address);
+ insert into Friend2 values(6, KBB_address('virar','Thane',400601, KB_name('Thishore','D','Sawar')));
+
+ desc Friend2;
+
+ select c_id from Friend2;
+
+select c_id,c.add1.street,c.add1.name.fname from Friend2 c;
+
+create or replace type stud_type as object (roll_no number(5), name varchar2(30) );  
+/
+
+ create table Students of stud_type;
+
+ insert into Students values(stud_type(1,'KPB'));
+
+ insert into Students values(stud_type(2,'NDR')); 
+
+ insert into Students values(stud_type(3,'ASM'));
+
+ insert into Students values(stud_type(4,'ASB'));
+
+ insert into Students values(stud_type(5,'GMK'));
+
+ select*from Students;
+
+select roll_no from Students;
+
+ select s.roll_no from Students s;
+
+select*from Students s where s.name='ASM';
+
+ select*from Students s  where s.name='GMK';

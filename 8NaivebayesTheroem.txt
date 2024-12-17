@@ -1,0 +1,14 @@
+ nb_model <- naiveBayes(Species ~ ., data = train_data) 
+ train_indices <- sample(1:nrow(iris), 0.7 * nrow(iris))  
+ train_data <- iris[train_indices, ]  
+ test_data <- iris[-train_indices, ] 
+ nb_pred <- predict(nb_model, test_data[, -5]) 
+ nb_accuracy <- sum(nb_pred == test_data$Species) / nrow(test_data)  
+ cat("Naive Bayes Accuracy:", nb_accuracy, "\n")
+
+ summary(nb_model)  
+
+ nb_table <- table(Actual = test_data$Species, Predicted = nb_pred)  
+ nb_table  
+
+ ggplot(as.data.frame.table(nb_table), aes(x = Actual, y = Predicted, fill = Freq)) + geom_tile() + labs(title = "Naive Bayes Confusion Matrix", x = "Actual", y = "Predicted")   

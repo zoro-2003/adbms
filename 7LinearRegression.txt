@@ -1,0 +1,9 @@
+ data(mtcars) 
+ model <- lm(mpg ~ wt, data = mtcars) 
+ summary(model) 
+
+plot(mtcars$wt, mtcars$mpg, main = "Scatterplot of Weight vs. MPG with Regression Line", 
++      xlab = "Weight", ylab = "Miles Per Gallon", pch = 16, col = "blue") 
+ abline(model, col = "red", lwd = 2) > par(mfrow = c(2, 2)) 
+ plot(model, pch = 16, col = "blue") 
+ par(mfrow = c(1, 1)) 

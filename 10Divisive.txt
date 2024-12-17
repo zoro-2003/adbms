@@ -1,0 +1,22 @@
+library(ggplot2) 
+features <- iris[, c("Sepal.Length", "Sepal.Width")] 
+ hclust_result <- hclust(dist(features), method = "complete") 
+ num_clusters <- 3 
+ clusters <- cutree(hclust_result, k = num_clusters) 
+ iris$cluster <- as.factor(clusters) 
+ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = cluster))+geom_point(size = 3)+ ggtitle("Divisive Clustering of Iris Dataset")+labs(color = "Cluster")+ theme_minimal() 
+
+
+
+
+ library(ggplot2)
+ head(iris) 
+ clusters <- hclust(dist(iris[, 3:4]))
+ plot(clusters) 
+ clusterCut<- cutree(clusters, 3) 
+ table(clusterCut, iris$Species) 
+ clusters <- hclust(dist(iris[,3:4]), method = 'average') 
+ plot(clusters) 
+ clusterCut <- cutree(clusters, 3) 
+ table(clusterCut, iris$Species) 
+ ggplot(iris, aes(Petal.Length, Petal.Width, color = iris$Species)) + geom_point(alpha = 0.4, size = 3.5) + geom_point(col = clusterCut) + scale_color_manual(values = c('black', 'red', 'green'))

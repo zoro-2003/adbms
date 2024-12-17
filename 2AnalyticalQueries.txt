@@ -1,0 +1,55 @@
+CREATE TABLE Employee21data
+        (Emp_no NUMBER(5),
+        Dep_no NUMBER(5),
+        Birth_date DATE,
+        Salary NUMBER(10),
+        Comm NUMBER(8),
+        Job VARCHAR2(30)
+        );
+
+
+
+insert all into Employee21data values(101,10,TO_DATE('03/09/2002','DD/MM/YYYY'),30000,2000,'Manager') 
+into Employee21data values(102,11,TO_DATE('13/07/2003','DD/MM/YYYY'),23000,1000,'Designer')    
+into Employee21data values(103,11,TO_DATE('22/08/2003','DD/MM/YYYY'),23500,1000,'Designer')    
+into Employee21data values(104,12,TO_DATE('21/04/2004','DD/MM/YYYY'),22000,800,'Tester')    
+into Employee21data values(105,12,TO_DATE('17/11/2003','DD/MM/YYYY'),21000,800,'Tester')    
+into Employee21data values(106,13,TO_DATE('04/02/2004','DD/MM/YYYY'),18000,400,'Developer')     
+into Employee21data values(107,13,TO_DATE('04/12/2002','DD/MM/YYYY'),19000,800,'Developer')   
+into Employee21data values(108,14,TO_DATE('15/06/2005','DD/MM/YYYY'),12000,500,'Sales')   
+into Employee21data values(109,14,TO_DATE('19/02/2004','DD/MM/YYYY'),12500,550,'Sales')    
+into Employee21data values(110,14,TO_DATE('14/11/2005','DD/MM/YYYY'),13500,600,'Sales')    
+select*from dual; 
+
+
+ROLL UP
+SELECT Dep_no,Job,count(*),sum(salary) from Employee21data group by rollup(Dep_no,Job);
+
+select Dep_no,Job,sum(salary) from Employee21data where Dep_no in(10,11) group by Dep_no, rollup(Job);
+
+select Dep_no,Job,sum(salary) from Employee21data where Dep_no in(12,13,14) group by Dep_no, rollup(Job);
+
+SELECT Dep_no,Job,count(*),sum(salary) from Employee21data group by job,rollup(Dep_no);
+
+
+CUBE
+SELECT Dep_no,Job,count(*),sum(salary) from Employee21data group by cube(Dep_no,Job);
+
+
+RANK
+select Emp_no,Dep_no,salary,comm, rank() over(partition by Dep_no order by salary)as Rank from Employee21data;
+
+DENSE RANK
+select Emp_no,Dep_no,salary,comm, dense_rank() over(partition by Dep_no order by salary)as Rank from Employee21data;
+
+LEAD
+select Emp_no,Birth_date,lead(Birth_date,1) over(order by Birth_date) as "next" from Employee21data;
+
+LAG
+select Emp_no,Birth_date, lag(Birth_date,1) over(order by Birth_date) as "Previous" from Employee21data;
+
+FIRST
+select Dep_no,salary, max(salary)keep(DENSE_RANK FIRST ORDER BY salary desc) over(PARTITION BY Dep_no)"max" from Employee21data;
+
+LAST
+SQL> select Dep_no,salary, min(salary)keep(DENSE_RANK LAST ORDER BY salary desc) over(PARTITION BY Dep_no)"min" from Employee21data;

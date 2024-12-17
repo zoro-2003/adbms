@@ -1,0 +1,33 @@
+ library(class)  
+ library(e1071)  
+ library(rpart)  
+ library(rpart.plot)  
+ library(C50)  
+ library(ggplot2)  
+ library(ROCR)  
+ data(iris) 
+ set.seed(123)  
+ train_indices <- sample(1:nrow(iris), 0.7 * nrow(iris))  
+ train_data <- iris[train_indices, ]  
+ test_data <- iris[-train_indices, ]  
+ dt_model <- rpart(Species ~ ., data = train_data, method = "class") 
+ dt_pred <- predict(dt_model, test_data, type = "class")  
+ dt_accuracy <- sum(dt_pred == test_data$Species) / nrow(test_data)  
+ cat("Decision Tree Accuracy:", dt_accuracy, "\n") 
+
+
+#id3
+ id3_model <- rpart(Species ~ ., data = train_data, method = "class") 
+ id3_pred <- predict(id3_model, test_data, type = "class")  
+ id3_accuracy <- sum(id3_pred == test_data$Species) / nrow(test_data) 
+ cat("ID3 Accuracy:", id3_accuracy, "\n")  
+
+
+ rpart.plot(id3_model, type = 2, extra = 101) 
+#C4.5
+ c45_model <- C5.0(train_data[, -5], train_data$Species)  
+ c45_pred <- predict(c45_model, newdata = test_data[, -5])  
+ c45_accuracy <- sum(c45_pred == test_data$Species) / nrow(test_data)  
+ cat("C4.5 Accuracy:", c45_accuracy, "\n") 
+
+ print(summary) plot(c45_model)  

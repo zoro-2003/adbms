@@ -1,0 +1,47 @@
+CREATE TABLE KB21sales_list
+    (salesman_id NUMBER(5),
+    salesman_name VARCHAR2(30),
+    sales_city VARCHAR2(30),
+    sales_amount NUMBER(10),
+    sales_date DATE)
+    PARTITION BY LIST(sales_city)
+    (
+    PARTITION sales_west VALUES('Vasai','Virar'),
+  PARTITION sales_Harbur VALUES('Vashi','Panvel','Naigoan'),
+  PARTITION sales_central VALUES('Thane','Saphale'),
+  PARTITION sales_other VALUES(DEFAULT)
+  )
+  enable row movement
+  ;
+
+
+SELECT TABLE_NAME,PARTITION_NAME FROM USER_TAB_PARTITIONS WHERE TABLESPACE_NAME='USERS';
+
+
+insert all
+    into KB21sales_list values(3,'akash abadi','Nallasopara','3500',TO_DATE('06/03/2002','DD/MM/YYYY'))
+    into KB21sales_list values(4,'Kandresh houhan','kasara','3600',TO_DATE('08/04/2002','DD/MM/YYYY'))
+    into KB21sales_list values(5,'Krutika Modas','Thane','4000',TO_DATE('03/05/2002','DD/MM/YYYY'))
+    into KB21sales_list values(6,'Omkar Kasle','Saphale','4500',TO_DATE('04/06/2002','DD/MM/YYYY'))
+    into KB21sales_list values(7,'Amol Garje','kashi','4200',TO_DATE('05/07/2002','DD/MM/YYYY'))
+    into KB21sales_list values(8,'Anuj Chandel','Virar','3700',TO_DATE('08/09/2002','DD/MM/YYYY'))
+  select*from dual;
+
+
+
+ insert all
+    into KB21sales_list values(9,'Shivtej Patil','Charni Road','2500',TO_DATE('06/07/2002','DD/MM/YYYY'))
+    into KB21sales_list values(10,'Pranav Jadhav','Grant Road','2600',TO_DATE('16/08/2002','DD/MM/YYYY'))
+    select*from dual;
+
+
+SELECT*FROM KB21sales_list partition(sales_west);
+
+
+SELECT*FROM KB21sales_list partition(sales_harbur);
+
+
+SELECT*FROM KB21sales_list partition(sales_central);
+
+
+SELECT*FROM KB21sales_list partition(sales_other);

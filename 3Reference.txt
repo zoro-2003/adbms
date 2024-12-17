@@ -1,0 +1,29 @@
+ CREATE OR REPLACE type Dog as object (Breed varchar2(25), Name varchar2(25), BirthDate DATE);
+    /
+
+
+ create table pet_dog of Dog;
+
+
+insert into pet_dog values (Dog('Den','Stella','02-Dec-16'));
+
+
+ insert into pet_dog values ( Dog('Lab','Shiro','23-Oct-23'));
+
+ insert into pet_dog values (Dog('Pug','Coco','18-Apr-17'));
+
+  select REF(A) from pet_dog A;
+
+ create table Owner (OwnerName varchar2(15), PETKEPT REF Dog);
+
+create table Owner (OwnerName varchar2(15), PETKEPT REF Dog);
+
+ describe Owner
+
+ insert into Owner select'Den', REF(A) from pet_dog A  where Name ='Stella';
+
+  insert into Owner select'Lab', REF(A) from pet_dog A   where Name ='Shiro';
+
+ insert into Owner select'Pug', REF(A) from pet_dog A where Name ='Coco';
+
+ select*from Owner;

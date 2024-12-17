@@ -1,0 +1,7 @@
+ clusters <- hclust(dist(iris[,3:4]), method = 'average') 
+
+  plot(clusters)  
+
+ clusterCut <- cutree(clusters, 3) 
+
+ table(clusterCut, iris$Species) 

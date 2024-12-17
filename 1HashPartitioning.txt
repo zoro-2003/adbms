@@ -1,0 +1,27 @@
+CREATE TABLE sales_krutarth21 (salesman_id NUMBER(5), salesman_name VARCHAR2(30), sales_amount NUMBER(10), week_no NUMBER(2) ) 
+ PARTITION BY HASH(salesman_id)  PARTITIONS  4 ;
+
+
+insert into sales_krutarth21 values(101,'Krutika',45000,12);
+insert into sales_krutarth21 values(102,'Noyal',46000,13);
+insert into sales_krutarth21 values(103,'Atharva',47000,11);
+
+select*from sales_krutarth21;
+
+
+insert all
+    into sales_krutarth21 values(104,'Shiv',48000,14)
+    into sales_krutarth21 values(105,'Aranav',49000,17)
+    into sales_krutarth21 values(106,'hiraj',46000,18)
+    into sales_krutarth21 values(107,'zushi',45000,22)
+    into sales_krutarth21 values(108,'Kuzma',47000,27)
+    into sales_krutarth21 values(109,'kivya',44000,24)
+    select*from dual;
+
+
+SELECT TABLE_NAME, PARTITION_NAME FROM USER_TAB_PARTITIONS WHERE 2 TABLESPACE_NAME='SYSTEM';
+
+select*from sales_krutarth21 partition(SYS_P549);
+select*from sales_krutarth21 partition(SYS_P550);
+select*from sales_krutarth21 partition(SYS_P551);
+select*from sales_krutarth21 partition(SYS_P548);

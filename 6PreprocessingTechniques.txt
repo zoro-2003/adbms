@@ -1,0 +1,31 @@
+ library(dplyr) 
+
+
+ data <- data.frame( 
+
++ ID = 1:5, 
++ Name = c("Sagar", "Aditya", "Aniket", "Raj", "Atharva"), 
++ Age = c(21, 23, 20, NA, 28), 
++ Score = c(85, 92, 78, 65, 89)) 
+
+ print(data) 
+
+
+  data <- data %>% 
++    rename(UserID = ID, FullName = Name) 
+ print(data)  
+ 
+
+ data$Grade <- ifelse(data$Score >= 90, "A", ifelse(data$Score >= 80, "B", "C")) 
+  print(data) 
+
+ data <- na.omit(data) 
+  print(data) 
+
+ data$Gender <- factor(c("Male", "Male", "Male", "Male")) 
+  print(data) 
+
+ subset_data <- subset(data, Age > 20) 
+  print(data) 
+
+ print(subset_data) 
